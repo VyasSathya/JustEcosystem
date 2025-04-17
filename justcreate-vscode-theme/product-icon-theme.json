@@ -1,0 +1,13 @@
+{
+  "iconDefinitions": {
+    "justcreate-logo": {
+      "iconPath": "./icons/justcreate-logo.svg"
+    }
+  },
+  "fonts": [],
+  "productIconTheme": {
+    "activityBar": {
+      "icon": "justcreate-logo"
+    }
+  }
+}

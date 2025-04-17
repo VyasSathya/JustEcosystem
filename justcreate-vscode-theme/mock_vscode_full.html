@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JustCreate VSCode Mock – Full UI</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #202124;
+      color: #f8f9fa;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .vscode-root {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      width: 100vw;
+    }
+    .activity-bar {
+      background: #232a32;
+      width: 56px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 22px;
+      box-shadow: 2px 0 8px #0004;
+      z-index: 2;
+    }
+    .activity-bar .logo-text {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #4285F4;
+      letter-spacing: 0.02em;
+      margin-bottom: 32px;
+    }
+    .activity-bar .icon {
+      width: 28px;
+      height: 28px;
+      margin: 18px 0;
+      border-radius: 8px;
+      background: #292b2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b0b4b9;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .activity-bar .icon.active {
+      background: #4285F4;
+      color: #fff;
+    }
+    .side-bar {
+      background: #232a32;
+      width: 240px;
+      height: 100vh;
+      padding: 24px 10px 0 10px;
+      box-sizing: border-box;
+      border-right: 1.5px solid #292b2f;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      z-index: 1;
+    }
+    .explorer {
+      margin-top: 10px;
+    }
+    .explorer-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #b0b4b9;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .folder {
+      color: #8E24AA;
+      font-weight: bold;
+      margin-bottom: 2px;
+      padding-left: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.2s;
+    }
+    .folder.selected, .file.selected {
+      background: #292b2f;
+      color: #34A853;
+    }
+    .file {
+      color: #f8f9fa;
+      padding-left: 24px;
+      border-radius: 6px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.2s;
+      font-size: 1rem;
+    }
+    .file .file-icon {
+      color: #FBBC05;
+      margin-right: 6px;
+    }
+    .panel {
+      background: #232a32;
+      border-top: 1.5px solid #292b2f;
+      border-radius: 0 0 18px 18px;
+      padding: 14px 20px;
+      color: #b0b4b9;
+      font-size: 1.08rem;
+      box-shadow: 0 4px 24px #0002;
+      margin: 0 28px 16px 0;
+      min-height: 80px;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      background: #232a32;
+      padding: 10px 24px 0 24px;
+      border-radius: 12px 12px 0 0;
+      margin: 32px 28px 0 28px;
+      align-items: flex-end;
+    }
+    .tab {
+      background: #292b2f;
+      color: #f8f9fa;
+      padding: 8px 22px;
+      border-radius: 9px 9px 0 0;
+      font-weight: bold;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+      margin-right: 4px;
+      box-shadow: 0 2px 6px #0003;
+      border-bottom: 2.5px solid #34A853;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab.inactive {
+      background: #232a32;
+      color: #b0b4b9;
+      border-bottom: none;
+      box-shadow: none;
+    }
+    .tab .close {
+      font-size: 1rem;
+      margin-left: 4px;
+      color: #b0b4b9;
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 1px 5px;
+      transition: background 0.2s;
+    }
+    .tab .close:hover {
+      background: #EA4335;
+      color: #fff;
+    }
+    .breadcrumbs {
+      color: #b0b4b9;
+      font-size: 0.95rem;
+      margin: 0 0 10px 48px;
+      letter-spacing: 0.02em;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .breadcrumbs .crumb {
+      color: #34A853;
+      font-weight: bold;
+    }
+    .editor {
+      background: #202124;
+      flex: 1;
+      padding: 36px 48px 36px 48px;
+      color: #f8f9fa;
+      font-size: 1.1rem;
+      border-radius: 18px;
+      margin: 0 28px 0 28px;
+      box-shadow: 0 4px 32px #0004;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+    }
+    .minimap {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 60px;
+      height: 100%;
+      background: #232a32;
+      border-radius: 0 18px 18px 0;
+      box-shadow: -2px 0 8px #0002;
+      opacity: 0.7;
+      font-size: 0.7rem;
+      color: #b0b4b9;
+      padding: 10px 2px 10px 2px;
+      text-align: right;
+      pointer-events: none;
+    }
+    .context-menu {
+      position: absolute;
+      left: 200px;
+      top: 200px;
+      background: #292b2f;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px #0006;
+      color: #f8f9fa;
+      min-width: 170px;
+      z-index: 1000;
+      font-size: 1rem;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .context-menu.active {
+      display: flex;
+    }
+    .context-menu .item {
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: background 0.13s;
+    }
+    .context-menu .item:hover {
+      background: #4285F4;
+      color: #fff;
+    }
+    .command-palette {
+      position: absolute;
+      left: 50%;
+      top: 80px;
+      transform: translateX(-50%);
+      background: #232a32;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px #0006;
+      color: #f8f9fa;
+      min-width: 480px;
+      z-index: 1200;
+      font-size: 1.1rem;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .command-palette.active {
+      display: flex;
+    }
+    .command-palette input {
+      background: #292b2f;
+      color: #f8f9fa;
+      border: none;
+      outline: none;
+      font-size: 1.1rem;
+      padding: 14px 18px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      border-radius: 18px 18px 0 0;
+    }
+    .command-palette .item {
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background 0.13s;
+      font-size: 1.05rem;
+    }
+    .command-palette .item:hover {
+      background: #4285F4;
+      color: #fff;
+    }
+    .notification {
+      position: absolute;
+      right: 40px;
+      bottom: 60px;
+      background: #292b2f;
+      color: #f8f9fa;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px #0006;
+      padding: 18px 32px;
+      font-size: 1.1rem;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-left: 6px solid #34A853;
+      animation: fadein 0.7s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; right: 0; }
+      to { opacity: 1; right: 40px; }
+    }
+    .settings-panel {
+      background: #232a32;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #0004;
+      margin: 24px 28px;
+      padding: 32px 48px;
+      color: #f8f9fa;
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .settings-title {
+      color: #4285F4;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .settings-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .settings-label {
+      flex: 1;
+      color: #b0b4b9;
+      font-weight: 600;
+    }
+    .settings-input {
+      background: #292b2f;
+      border-radius: 8px;
+      border: none;
+      color: #f8f9fa;
+      padding: 6px 18px;
+      font-size: 1.05rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .quick-input {
+      position: absolute;
+      left: 50%;
+      top: 50px;
+      transform: translateX(-50%);
+      background: #292b2f;
+      color: #f8f9fa;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px #0006;
+      min-width: 320px;
+      z-index: 1300;
+      font-size: 1.1rem;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .quick-input.active {
+      display: flex;
+    }
+    .quick-input .item {
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background 0.13s;
+      font-size: 1.05rem;
+    }
+    .quick-input .item:hover {
+      background: #34A853;
+      color: #fff;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+      background: #232a32;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #292b2f;
+      border-radius: 8px;
+    }
+    ::selection {
+      background: #e3f0fd44;
+    }
+  </style>
+</head>
+<body>
+  <div class="vscode-root">
+    <div class="activity-bar">
+      <span class="logo-text">J<span class="brand">C</span><span class="last">e</span></span>
+      <div class="icon active" title="Explorer">&#9776;</div>
+      <div class="icon" title="Search">&#128269;</div>
+      <div class="icon" title="Source Control">&#128736;</div>
+      <div class="icon" title="Run">&#9654;</div>
+      <div class="icon" title="Settings">&#9881;</div>
+    </div>
+    <div class="side-bar">
+      <div class="explorer-title">EXPLORER</div>
+      <div class="explorer">
+        <div class="folder selected">justcreate-vscode-theme</div>
+        <div class="file"><span class="file-icon">&#128196;</span>mock_vscode.html</div>
+        <div class="file selected"><span class="file-icon">&#128196;</span>app.py</div>
+        <div class="file"><span class="file-icon">&#128196;</span>README.md</div>
+        <div class="file"><span class="file-icon">&#128196;</span>package.json</div>
+        <div class="folder">themes</div>
+        <div class="file"><span class="file-icon">&#128196;</span>justcreate-dark-color-theme.json</div>
+        <div class="file"><span class="file-icon">&#128196;</span>justcreate-light-color-theme.json</div>
+      </div>
+      <div class="panel" style="margin-top: 18px;">
+        <b>SEARCH</b><br>
+        <input class="settings-input" style="width: 90%; margin-top: 8px;" placeholder="Search...">
+        <div style="margin-top: 8px; color:#b0b4b9;">No results found.</div>
+      </div>
+      <div class="panel">
+        <b>SOURCE CONTROL</b><br>
+        <div style="margin-top: 8px; color:#b0b4b9;">No changes.</div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="tab-bar">
+        <div class="tab">app.py <span class="close">&#10005;</span></div>
+        <div class="tab inactive">README.md <span class="close">&#10005;</span></div>
+        <div class="tab inactive">index.html <span class="close">&#10005;</span></div>
+        <div class="tab inactive">settings.json <span class="close">&#10005;</span></div>
+      </div>
+      <div class="breadcrumbs">
+        <span class="crumb">justcreate-vscode-theme</span> / <span class="crumb">app.py</span>
+      </div>
+      <div class="editor">
+        <div style="color:#b0b4b9;"># app.py</div>
+        <div>def hello():</div>
+        <div style="margin-left:2em;color:#34A853;">print(<span style="color:#fbbc05">'Welcome to JustCreate!'</span>)</div>
+        <div class="minimap">def hello(): ...</div>
+      </div>
+      <div class="settings-panel">
+        <div class="settings-title">Settings</div>
+        <div class="settings-item">
+          <span class="settings-label">Font Family</span>
+          <input class="settings-input" value="Montserrat, Arial, sans-serif">
+        </div>
+        <div class="settings-item">
+          <span class="settings-label">Theme</span>
+          <input class="settings-input" value="JustCreate Dark">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="status-bar">JustCreate — All systems go!</div>
+  <div class="notification"><span>&#9989;</span> Project saved successfully!</div>
+  <div class="command-palette active">
+    <input placeholder="Type a command..." value="> Open File">
+    <div class="item">Open File...</div>
+    <div class="item">Save All</div>
+    <div class="item">Go to Symbol in File</div>
+    <div class="item">Toggle Sidebar</div>
+  </div>
+  <div class="quick-input active">
+    <div class="item">app.py</div>
+    <div class="item">README.md</div>
+    <div class="item">settings.json</div>
+  </div>
+  <div class="context-menu active">
+    <div class="item">Cut</div>
+    <div class="item">Copy</div>
+    <div class="item">Paste</div>
+    <div class="item">Rename</div>
+    <div class="item">Delete</div>
+  </div>
+  <!-- AI Chat Window -->
+  <div class="ai-chat-window">
+    <div class="ai-chat-header">JustCreate AI Chat</div>
+    <div class="ai-chat-messages">
+      <div class="ai-chat-msg ai-chat-user">How do I refactor this function?</div>
+      <div class="ai-chat-msg ai-chat-ai">Sure! Here’s a cleaner version with comments for clarity:</div>
+      <div class="ai-chat-msg ai-chat-ai"><pre>def hello():
+    print('Welcome to JustCreate!')
+</pre></div>
+      <div class="ai-chat-msg ai-chat-user">Thanks! Can you explain?</div>
+      <div class="ai-chat-msg ai-chat-ai">Of course! This function prints a welcome message. Let me know if you want more details or examples.</div>
+    </div>
+    <div class="ai-chat-input-row">
+      <input class="ai-chat-input" placeholder="Type your question..." />
+      <button class="ai-chat-send">Send</button>
+    </div>
+  </div>
+  <style>
+    .ai-chat-window {
+      position: fixed;
+      right: 36px;
+      bottom: 52px;
+      width: 340px;
+      background: #232a32;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #0006;
+      color: #f8f9fa;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      z-index: 3000;
+      border: 2.5px solid #4285F4;
+      overflow: hidden;
+      animation: fadein 0.5s;
+    }
+    .ai-chat-header {
+      background: #4285F4;
+      color: #fff;
+      font-weight: bold;
+      padding: 16px 20px;
+      font-size: 1.15rem;
+      border-radius: 18px 18px 0 0;
+      letter-spacing: 0.02em;
+    }
+    .ai-chat-messages {
+      padding: 16px 14px 4px 14px;
+      flex: 1;
+      max-height: 220px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #232a32;
+    }
+    .ai-chat-msg {
+      padding: 10px 14px;
+      border-radius: 13px;
+      max-width: 90%;
+      font-size: 1.01rem;
+      margin-bottom: 2px;
+      word-break: break-word;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .ai-chat-user {
+      background: #4285F4;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+    .ai-chat-ai {
+      background: #292b2f;
+      color: #FBBC05;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+    .ai-chat-msg pre {
+      background: #202124;
+      color: #34A853;
+      font-size: 0.99rem;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 0;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+    }
+    .ai-chat-input-row {
+      display: flex;
+      padding: 12px 12px 12px 12px;
+      background: #232a32;
+      border-radius: 0 0 18px 18px;
+      gap: 10px;
+      border-top: 1.5px solid #292b2f;
+    }
+    .ai-chat-input {
+      flex: 1;
+      border-radius: 10px;
+      border: 1.5px solid #4285F4;
+      padding: 8px 12px;
+      font-size: 1.02rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #292b2f;
+      color: #f8f9fa;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .ai-chat-input:focus {
+      border: 2px solid #34A853;
+    }
+    .ai-chat-send {
+      background: #34A853;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 1.02rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ai-chat-send:hover {
+      background: #4285F4;
+    }
+  </style>
+</body>
+</html>

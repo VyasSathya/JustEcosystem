@@ -1,0 +1,76 @@
+{
+  "name": "JustCreate Light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#f8f9fa",
+    "editor.foreground": "#202124",
+    "editorLineNumber.foreground": "#b0b4b9",
+    "editorCursor.foreground": "#4285f4",
+    "editor.selectionBackground": "#e3f0fd",
+    "editor.inactiveSelectionBackground": "#e9eef6",
+    "editor.lineHighlightBackground": "#eaf3fb",
+    "editorIndentGuide.background": "#e0e3e7",
+    "editorIndentGuide.activeBackground": "#4285f4",
+    "sideBar.background": "#f4f6fa",
+    "sideBar.foreground": "#202124",
+    "activityBar.background": "#eaf3fb",
+    "activityBar.foreground": "#4285f4",
+    "activityBarBadge.background": "#34a853",
+    "activityBarBadge.foreground": "#fff",
+    "statusBar.background": "#4285f4",
+    "statusBar.foreground": "#fff",
+    "tab.activeBackground": "#fff",
+    "tab.activeForeground": "#202124",
+    "tab.inactiveBackground": "#eaf3fb",
+    "tab.inactiveForeground": "#b0b4b9",
+    "button.background": "#4285f4",
+    "button.foreground": "#fff",
+    "input.background": "#fff",
+    "input.foreground": "#202124",
+    "dropdown.background": "#fff",
+    "dropdown.foreground": "#202124",
+    "badge.background": "#ea4335",
+    "badge.foreground": "#fff",
+    "titleBar.activeBackground": "#f8f9fa",
+    "titleBar.activeForeground": "#202124",
+    "panel.background": "#fff",
+    "panel.border": "#e0e3e7"
+  },
+  "tokenColors": [
+    {
+      "name": "JustEnglish: Keyword",
+      "scope": ["keyword", "storage.type", "keyword.control.justenglish"],
+      "settings": { "foreground": "#4285F4", "fontStyle": "bold" }
+    },
+    {
+      "name": "JustEnglish: Type/Class",
+      "scope": ["entity.name.type.justenglish", "support.class.justenglish"],
+      "settings": { "foreground": "#34A853" }
+    },
+    {
+      "name": "JustEnglish: String",
+      "scope": ["string", "constant.other.symbol", "string.quoted.justenglish"],
+      "settings": { "foreground": "#FBBC05" }
+    },
+    {
+      "name": "JustEnglish: Number",
+      "scope": ["constant.numeric", "constant.language.justenglish"],
+      "settings": { "foreground": "#FF9800" }
+    },
+    {
+      "name": "JustEnglish: Function",
+      "scope": ["entity.name.function", "support.function.justenglish"],
+      "settings": { "foreground": "#8E24AA" }
+    },
+    {
+      "name": "JustEnglish: Variable",
+      "scope": ["variable", "entity.name.variable", "variable.justenglish"],
+      "settings": { "foreground": "#EA4335" }
+    },
+    {
+      "name": "JustEnglish: Comment",
+      "scope": ["comment", "punctuation.definition.comment", "comment.line.justenglish"],
+      "settings": { "foreground": "#b0b4b9", "fontStyle": "italic" }
+    }
+  ]
+}

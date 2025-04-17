@@ -1,6 +1,8 @@
-# JustCreate Ecosystem – Master Documentation
+# 📚 JustEcosystem Master Documentation
 
-Welcome to the JustCreate Ecosystem! This is the central hub for all documentation, architecture, and onboarding resources. The ecosystem consists of three interconnected VS Code extensions—**JustImagine**, **JustCreate**, **JustDraft**—the optional social sharing service (**JustStuff**), and the robust backend infrastructure (**JustWorks**).
+> 🚦 **For all onboarding, task management, and process, start at the root [`README.md`](../README.md). This is your single source of truth for onboarding, management, and execution.**
+>
+> This file contains technical and documentation structure details unique to the master_docs directory.
 
 ---
 

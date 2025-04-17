@@ -9,9 +9,16 @@ affects: -
 change_requires: -
 -->
 
-# JustStuff: Integrated Task & Documentation Management System
+# 📑 <ProjectName>: Universal Task & Documentation Management Template
 
-> **Important**: Before starting, complete all items in the [PROJECT_SETUP_CHECKLIST.md](./PROJECT_SETUP_CHECKLIST.md)
+> 🚦 **For onboarding, task management, and project setup, see the root [`README.md`](../../README.md) and [`CHECKLIST.md`](../../CHECKLIST.md) — your single entry point for all engineers, AI agents, and managers.**
+>
+> This template provides a universal, automation-ready foundation for any project.
+
+
+> 🚦 **For onboarding, task management, and process, see the root [`README.md`](../../README.md) — your single entry point for all engineers and managers.**
+>
+> This file documents technical details unique to the JustStuff template and task/documentation system.
 
 ## Table of Contents
 - [Overview](#overview)

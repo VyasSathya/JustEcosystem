@@ -1,0 +1,25 @@
+{
+  "name": "justcreate-theme",
+  "displayName": "JustCreate Theme",
+  "description": "A soft, modern VSCode theme inspired by the JustCreate brand.",
+  "version": "0.0.1",
+  "publisher": "justecosystem",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "label": "JustCreate Light",
+        "uiTheme": "vs",
+        "path": "./themes/justcreate-light-color-theme.json"
+      },
+      {
+        "label": "JustCreate Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/justcreate-dark-color-theme.json"
+      }
+    ]
+  }
+}

@@ -1,12 +1,27 @@
 # JustEcosystem: Master Task Board
 
 > **Single source of truth for all tasks and priorities across JustCreate, JustStuff, and JustWorks.**
-> 
+>
+> **CRITICAL: Cross-Repo Compatibility & Interconnectivity**
+> - The following tasks are marked PRIORITY: BLOCKING and must be completed before any dependent work in other repos begins.
+> - All teams must use the Cross-Repo Integration Checklist below before starting downstream features.
+>
 > **Instructions:**
 > - Edit this file directly to add, update, or assign tasks.
 > - Each row is a canonical task for one repo/AI engineer.
 > - Per-repo `.task/tasks/MASTER_SYNC.md` files are auto-generated from this board.
 > - Assign each task to one of the three AI engineers (one per repo).
+
+---
+
+## 🚦 Cross-Repo Integration & Compatibility Checklist
+- [ ] User Authentication backend API is implemented and accessible by all clients (JustStuff, JustCreate)
+- [ ] OpenAPI/Swagger contract is finalized and shared with all teams
+- [ ] All API endpoints required for MVP are documented and reviewed for compatibility
+- [ ] Shared data models/interfaces are agreed upon and documented in `master_docs/` and `.docs/api/`
+- [ ] Early integration tests are written for all cross-repo features (auth, profile, shared settings)
+- [ ] Communication plan for API changes is in place and understood by all teams
+- [ ] All blockers or unresolved dependencies are escalated before downstream work begins
 
 ---
 
