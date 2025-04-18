@@ -20,6 +20,30 @@ change_requires: -
 >
 > This file documents technical details unique to the JustStuff template and task/documentation system.
 
+## 🚦 Scripts (Always Two Words)
+
+All automation and utility scripts are run as two-word npm commands:
+
+| Command                 | What it does                                |
+|------------------------|---------------------------------------------|
+| `npm run ai:status`    | Show status of all tasks and docs           |
+| `npm run ai:suggest`   | Suggest next actions for tasks              |
+| `npm run brand:apply`  | Apply JustEcosystem branding to README      |
+| `npm run dash:start`   | Start the compliance dashboard server       |
+| `npm run repo:new`     | Scaffold a new repo from this template      |
+| `npm run list:scripts` | List all available npm scripts              |
+| `npm run lint:all`     | Lint all code and markdown                  |
+| `npm run task:open`    | Open the interactive task manager           |
+| `npm run doc:open`     | Open the interactive doc manager            |
+| `npm run fix:markdown` | Auto-fix markdown formatting                |
+
+> **Tip:** To see all available scripts at any time, run:
+> ```bash
+> npm run list:scripts
+> ```
+
+---
+
 ## Table of Contents
 - [Overview](#overview)
 - [System Components](#system-components)

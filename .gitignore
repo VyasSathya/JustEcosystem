@@ -1,4 +1,4 @@
-# Ignore local monorepo subprojects
-JustCreate/
-JustStuff/
-JustWorks/
+archive/
+archive_projects/
+node_modules/
+.DS_Store

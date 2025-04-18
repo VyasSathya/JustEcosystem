@@ -1,9 +1,0 @@
-# JustEnglish Sample Code
-let x = 42
-if x > 10 {
-    print("Hello, JustCreate!")
-    // This is a comment
-}
-function greet(name) {
-    return "Hello, " + name
-}
